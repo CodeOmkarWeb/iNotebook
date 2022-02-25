@@ -1,3 +1,32 @@
-db.js
-index.js
-auth.js
+index.js -- > made Connection with database, wrote 2 routes "routes/auth & routes/notes" and run app
+
+Two routes
+1. "routes/auth"
+    - Route-1 Cerate a User using POST
+        • use express validator and create the user
+        • check if the user with same email or password already exists
+        • secure the password using salt and hash of that password
+        • store the data in the database
+        
+    - Route-2 Login a User using 
+        • use express validator check if email is valid & password is not blank
+        • if user and password are correct then login the user and give the token to user & login it
+
+    - Route-3  Get User Detail
+        • call the fetch user fxn 
+            ○ check if the token is present in the header of req.header
+            ○ if it does not exist then send a err message
+            ○ if the token matches with the user id token then call the next function 
+        • send user its name and email not the password.
+
+
+
+2. "routes/notes"
+
+
+
+
+
+✔ 51
+✔ 52
+

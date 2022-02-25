@@ -7,7 +7,7 @@ app.use(express.json()) // --> To take req.body in the form of json | To take da
 
 // Available Routes
 app.use('/api/auth', require('./routes/auth')) // --> Create a user using this path
-app.use("/api/notes",require('./routes/notes.js'))
+app.use("/api/notes",require('./routes/notes'))
 
 
 
