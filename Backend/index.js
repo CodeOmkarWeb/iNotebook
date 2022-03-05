@@ -16,6 +16,6 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Inotebook App listening on port ${port}`)
 })
 // 9:20
