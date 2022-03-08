@@ -21,6 +21,33 @@ const NoteState = (props)=>{
           "tag": "60",
           "date": "1646452366423",
           "__v": 0
+        },
+        {
+          "_id": "6222de8eb4667d7415119176",
+          "user": "620728f8f7eea31b81cfb6f0",
+          "title": "New Note",
+          "description": "This is my 60th Video",
+          "tag": "60",
+          "date": "1646452366423",
+          "__v": 0
+        },
+        {
+          "_id": "6222de8eb4667d7415119176",
+          "user": "620728f8f7eea31b81cfb6f0",
+          "title": "New Note",
+          "description": "This is my 60th Video",
+          "tag": "60",
+          "date": "1646452366423",
+          "__v": 0
+        },
+        {
+          "_id": "6222de8eb4667d7415119176",
+          "user": "620728f8f7eea31b81cfb6f0",
+          "title": "New Note",
+          "description": "This is my 60th Video",
+          "tag": "60",
+          "date": "1646452366423",
+          "__v": 0
         }
       ]
       const [notes, setnotes] = useState(notesinitial)
