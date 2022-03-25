@@ -5,7 +5,7 @@ import { useState } from 'react'
 const NoteState = (props)=>{
     const notesinitial = [
         {
-          "_id": "620fa64e2acedc8fc9fdcf6c",
+          "_id": "620fa64e2acedsdfc8fc9fdcf6sc",
           "user": "620728f8f7eea31b81cfb6f0",
           "title": "This is my tittle and 1st note",
           "description": "This is my description",
@@ -14,7 +14,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "6222de8eb4667d7415119176",
+          "_id": "6222de8eb4667d741ssfd5119176",
           "user": "620728f8f7eea31b81cfb6f0",
           "title": "New Note",
           "description": "This is my 60th Video",
@@ -23,7 +23,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "6222de8eb4667d7415119176",
+          "_id": "6222de8eb4667d741sdf5s119176",
           "user": "620728f8f7eea31b81cfb6f0",
           "title": "New Note",
           "description": "This is my 60th Video",
@@ -32,7 +32,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "6222de8eb4667d7415119176",
+          "_id": "6222desdf8eb4667d7415119176",
           "user": "620728f8f7eea31b81cfb6f0",
           "title": "New Note",
           "description": "This is my 60th Video",
@@ -41,7 +41,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "6222de8eb4667d7415119176",
+          "_id": "6222de8eb4dsf667d7415119176",
           "user": "620728f8f7eea31b81cfb6f0",
           "title": "New Note",
           "description": "This is my 60th Video",

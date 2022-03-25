@@ -8,10 +8,24 @@ function NoteItem(props) {
                 <h5 className="card-title">{props.note.title}</h5>
                 <p className="card-text">{props.note.description}</p>
                 <p className="light-text">{props.note.tag}</p>
-                <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md" className="btn btn-primary">Go somewhere</a>
+                <i className="far fa-trash-alt"></i>
+                <i className="far fa-edit mx-2"></i>
             </div>
         </div>
     )
 }
 
 export default NoteItem
+
+
+
+
+
+
+
+
+
+
+
+
+// https://www.youtube.com/watch?v=pgsuE05tq0U
