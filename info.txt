@@ -1,2 +1,4 @@
 Note Context --> Isko sare components value access karne ke liye use karenge
 NoteState --> Issme sari values/states/information banaai jayegi jo NoteContext.js me store hogi aur NoteContext.js se sare components values fetch kar payenge.
+// #65 Started 
+// 1:53

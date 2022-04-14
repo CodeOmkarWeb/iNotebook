@@ -1,86 +1,100 @@
-
+// Clean all the Logs
+//  68
 import NoteContext from './noteContext'
 import { useState } from 'react'
+// import { useEffect } from 'react/cjs/react.development'
 
 const NoteState = (props) => {
-  const notesinitial = [
-    {
-      "_id": "620fa64e2acedsdfc8fc9fdcf6sc",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": "This is my tittle and 1st note",
-      "description": "This is my description",
-      "tag": "firstnote",
-      "date": "1645192782660",
-      "__v": 0
-    },
-    {
-      "_id": "6222de8eb4667d741ssfd5119176",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": "New Note",
-      "description": "This is my 60th Video",
-      "tag": "60",
-      "date": "1646452366423",
-      "__v": 0
-    },
-    {
-      "_id": "6222de8eb4667d741sdf5s119176",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": "New Note",
-      "description": "This is my 60th Video",
-      "tag": "60",
-      "date": "1646452366423",
-      "__v": 0
-    },
-    {
-      "_id": "6222desdf8eb4667d7415119176",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": "New Note",
-      "description": "This is my 60th Video",
-      "tag": "60",
-      "date": "1646452366423",
-      "__v": 0
-    },
-    {
-      "_id": "6222de8eb4dsf667d7415119176",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": "New Note",
-      "description": "This is my 60th Video",
-      "tag": "60",
-      "date": "1646452366423",
-      "__v": 0
-    }
-  ]
+  const host = "http://localhost:5000"
+  const notesinitial = []
+
+  // setnotes is used in User Interface to set note only in UI
   const [notes, setnotes] = useState(notesinitial)
+
+
+
+
+
+  // Get Notes
+  const getNotes = async () => {
+    const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+      method: 'GET', // POST
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token':localStorage.getItem('token')
+      },
+    });
+    const json = await response.json()
+    setnotes(json)
+  }
+
+
+
+
   // Add a Note
-  const addNote = (title, description, tag) => {
-    // Todo API Call
-    console.log("Adding a New Note")
-    console.log(title,description,tag)
-    const note = {
-      "_id": "6222de8sdeab4dsfdffgfgdgdsgdgdfgdsfgdfgsdf667d7415119176",
-      "user": "620728f8f7eea31b81cfb6f0",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": "1646452366423",
-      "__v": 0
-    }
+  const addNote = async (title, description, tag) => {
+    const response = await fetch(`${host}/api/notes/addnote`, {
+      method: 'POST', // POST
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token':localStorage.getItem('token')
+      },
+      body: JSON.stringify({title, description, tag})
+    });
+    const json = await response.json();
+    const note = json
     setnotes(notes.concat(note))
   }
-  // Delete a Note
-  const deleteNote = (id) => {
-    // Todo API Call
-    // setnotes(notes.(note))
-    console.log("Deleting the Note with id +", id)
-    const newNotes = notes.filter((note)=>{return note._id!==id})
+  
+
+
+
+
+
+  const deleteNote = async (id) => {
+    // API Call
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "auth-token":localStorage.getItem('token')
+      }
+    });
+    // const json = response.json();
+    const newNotes = notes.filter((note) => { return note._id !== id })
     setnotes(newNotes)
   }
-  // Edit a Note
-  const editNote = (id,title,description,tag) => {
 
+
+
+  // Edit a Note
+  const editNote = async (id, title, description, tag) => {
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+      method: 'PUT', // Put
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token':localStorage.getItem('token') 
+      },
+      body: JSON.stringify({title, description, tag})
+    });
+    // const json = response.json();
+
+
+    let newNotes = JSON.parse(JSON.stringify(notes))
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
+      if (element._id === id) {
+        newNotes[index].title = title
+        newNotes[index].description = description
+        newNotes[index].tag = tag
+        break;
+
+      }
+    }
+    setnotes(newNotes)
   }
   return (
-    <NoteContext.Provider value={{ notes,addNote,deleteNote}}>
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, getNotes,editNote }}>
       {props.children}
     </NoteContext.Provider>
   )

@@ -7,12 +7,13 @@ const User = require('../models/User') // --> a model created from schema | to s
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const JWD_SECRET = 'omkarisag**db*y'
-const fetchuser= require('../middleware/fetchuser')
+const fetchuser = require('../middleware/fetchuser')
 
 // Route-1 Cerate a User using POST: "api/auth/createuser" Dosen't require Authentication - No login Required
 router.post('/createuser', [body('name', 'Invalid Email').isString(), body('email', 'Invalid Email').isEmail(), body('password', 'Invalid Password, it should of al least 5 characters').isLength({ min: 5 }),], async (req, res) => {
     // If there are errors , return bad request and the error
     const errors = validationResult(req);
+    let success = false
     if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() }); }
     try {
         // Check if the email exists already
@@ -42,7 +43,8 @@ router.post('/createuser', [body('name', 'Invalid Email').isString(), body('emai
         console.log("Token = ", authtoken, "\n")
         console.log("Data = ", data, "\n")
         console.log("Data.id = ", data.user, "\n")
-        res.json({ authtoken: authtoken })
+        success = true
+        res.json({success:success, authtoken: authtoken })
 
     }
     catch (error) {
@@ -59,6 +61,7 @@ router.post('/login', [
     body('email', 'Invalid Email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
 ], async (req, res) => {
+    let success = false
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -72,15 +75,17 @@ router.post('/login', [
         }
         const passwordCompare = await bcrypt.compare(password, user.password)
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Pls Enter correct credentials" });
+            return res.status(400).json({error: "Pls Enter correct credentials" });
 
         }
+        success = true
         const data = { user: { id: user.id } }
         const authtoken = jwt.sign(data, JWD_SECRET);
-        res.json({ authtoken })
-
+        res.json({ success, authtoken })
+        console.log(authtoken)
     }
     catch (error) {
+        success = false
         console.log(error.message)
         res.status(500).send("Internal Server Occured ")
     }
@@ -89,7 +94,7 @@ router.post('/login', [
 
 
 // Route-3  Get User Detail: using POST "api/auth/getuser"
-router.post('/getuser', fetchuser,async (req, res) => {
+router.post('/getuser', fetchuser, async (req, res) => {
     try {
         userid = req.user.id
         const user = await User.findOne({ userid }).select("-password")
